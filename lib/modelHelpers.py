@@ -135,7 +135,7 @@ def send_request(
 
     headers = {
         "Content-Type": "application/json",
-        "Authorization": f"Bearer {TOKEN}",
+        "api-key": TOKEN,
     }
 
     content: list[GPTMessageItem] = []

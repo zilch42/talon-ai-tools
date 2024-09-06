@@ -7,3 +7,6 @@ gpt-settings.talon
 __pycache__/
 
 node_modules/
+
+.env
+api-key.py
