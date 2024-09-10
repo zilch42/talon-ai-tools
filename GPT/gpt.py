@@ -1,7 +1,7 @@
 import os
 from typing import Any, Optional
 
-from talon import Module, actions, clip, settings
+from talon import Module, actions, clip, settings, Context
 
 from ..lib.HTMLBuilder import Builder
 from ..lib.modelConfirmationGUI import confirmation_gui
@@ -23,6 +23,8 @@ mod.tag(
     "model_window_open",
     desc="Tag for enabling the model window commands when the window is open",
 )
+
+ctx = Context()
 
 
 def gpt_query(
@@ -297,6 +299,8 @@ class UserActions:
             case "paste":
                 GPTState.last_was_pasted = True
                 actions.user.paste(message_text_no_images)
+            case "google":
+                actions.user.search_with_search_engine("https://www.google.com/search?q=%s", message_text_no_images)
             # If the user doesn't specify a method assume they want to paste.
             # However if they didn't specify a method when the confirmation gui
             # is showing, assume they don't want anything to be inserted
@@ -339,5 +343,9 @@ class UserActions:
                     raise Exception(
                         "GPT Failure: User applied a prompt to the phrase last Talon Dictation, but there was no text to reformat"
                     )
+            case "window":
+                actions.user.screenshot_window_clipboard()
+                return format_clipboard()
             case "this" | _:
                 return format_message(actions.edit.selected_text())
+

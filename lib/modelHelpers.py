@@ -175,7 +175,7 @@ def send_request(
         "model": settings.get("user.openai_model"),
     }
     if GPTState.debug_enabled:
-        print(data)
+        print(json.dumps(data, indent=2))
     if tools is not None:
         data["tools"] = tools
 
