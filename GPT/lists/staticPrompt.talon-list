@@ -27,6 +27,7 @@ shell: Generate a shell script that performs the following actions. Output only 
 add emoji: Return the same exact text verbatim with the same formatting, but add emoji when appropriate in order to make the text fun and easier to understand.
 make softer: Act as an editor. I want you to make the following text softer in tone. Return just the modified text.
 make stronger: Act as an editor. I want you to make the following text stronger in tone. Return just the modified text.
+replace placeholder: The highlighted red text in this screenshot is placeholder text in a parameterized report which shows the intent and style of the paragraph, but may still be factually incorrect. The plots and tables in the report have been generated for the given Research Unit, but the highlighted placeholder text in red needs rewriting to match the data provided in the plots and tables. Please rewrite the placeholder text taking into account the surrounding plots and tables where they appear relevant.
 
 ## FILE CONVERSIONS
 convert to jason: Convert the following data into a JSON format.

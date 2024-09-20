@@ -5,6 +5,18 @@ from .modelHelpers import GPTState, extract_message, notify
 mod = Module()
 ctx = Context()
 
+def wrap_text(text, width):
+    """Wrap text to fit within a specified width."""
+    wrapped_lines = []
+    for line in text.split('\n'):
+        while len(line) > width:
+            split_index = line.rfind(' ', 0, width)
+            if split_index == -1:  # No spaces found, force split
+                split_index = width
+            wrapped_lines.append(line[:split_index])
+            line = line[split_index:].lstrip()
+        wrapped_lines.append(line)
+    return '\n'.join(wrapped_lines)
 
 class ConfirmationGUIState:
     display_thread = False
@@ -34,7 +46,10 @@ def confirmation_gui(gui: imgui.GUI):
     # to confirm and it not represent a thread
     ConfirmationGUIState.update()
 
-    for line in GPTState.text_to_confirm.split("\n"):
+    max_width = 160  # Adjust this value as needed
+    wrapped_text = wrap_text(GPTState.text_to_confirm, max_width)
+    
+    for line in wrapped_text.split("\n"):
         gui.text(line)
 
     # gui.spacer()

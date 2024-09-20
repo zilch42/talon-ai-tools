@@ -188,6 +188,7 @@ def send_request(
             resp = raw_response.json()["choices"][0]["message"]["content"].strip()
             formatted_resp = strip_markdown(resp)
             response = format_message(formatted_resp)
+            # TODO count tokens
         case _:
             notify("GPT Failure: Check the Talon Log")
             raise Exception(raw_response.json())
