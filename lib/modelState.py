@@ -13,6 +13,8 @@ class GPTState:
     thread: ClassVar[list[GPTMessage]] = []
     thread_enabled: ClassVar[bool] = False
     debug_enabled: ClassVar[bool] = False
+    total_in_tokens: ClassVar[int] = 0
+    total_out_tokens: ClassVar[int] = 0
 
     @classmethod
     def start_debug(cls):
@@ -68,9 +70,17 @@ class GPTState:
         actions.app.notify("Appended to thread")
 
     @classmethod
+    def update_token_count(cls, response: dict):
+        """Update token counts with latest response"""
+        cls.total_in_tokens += response.get("usage").get("prompt_tokens")
+        cls.total_out_tokens += response.get("usage").get("completion_tokens")
+
+    @classmethod
     def reset_all(cls):
         cls.text_to_confirm = ""
         cls.last_response = ""
         cls.last_was_pasted = False
         cls.context = []
         cls.thread = []
+        cls.total_in_tokens = 0
+        cls.total_out_tokens = 0

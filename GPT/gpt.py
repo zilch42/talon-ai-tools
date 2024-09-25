@@ -346,6 +346,9 @@ class UserActions:
             case "window":
                 actions.user.screenshot_window_clipboard()
                 return format_clipboard()
+            case "screen":
+                actions.user.screenshot_clipboard()
+                return format_clipboard()
             case "this" | _:
                 return format_message(actions.edit.selected_text())
 
