@@ -70,3 +70,10 @@ mod.setting(
     default="bash",
     desc="The default shell for outputting model shell commands",
 )
+
+mod.setting(
+    "model_window_width",
+    type=int,
+    default=160,
+    desc="The default width for the window destination",
+)
