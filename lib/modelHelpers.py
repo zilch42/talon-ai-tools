@@ -186,6 +186,7 @@ def send_request(
         case 200:
             notify("GPT Task Completed")
             resp = raw_response.json()["choices"][0]["message"]["content"].strip()
+            # TODO keep whole response and dont strip markdown here
             formatted_resp = strip_markdown(resp)
             response = format_message(formatted_resp)
             # TODO count tokens

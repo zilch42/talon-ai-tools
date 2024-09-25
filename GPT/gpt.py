@@ -286,11 +286,13 @@ class UserActions:
                     cursorless_destination, message_text_no_images
                 )
             # Don't add to the window twice if the thread is enabled
+            # case "window":
+            #     # If there was prior text in the confirmation GUI and the user
+            #     # explicitly passed new text to the gui, clear the old result
+            #     GPTState.text_to_confirm = message_text_no_images
+            #     actions.user.confirmation_gui_append(message_text_no_images)
             case "window":
-                # If there was prior text in the confirmation GUI and the user
-                # explicitly passed new text to the gui, clear the old result
-                GPTState.text_to_confirm = message_text_no_images
-                actions.user.confirmation_gui_append(message_text_no_images)
+                actions.user.show_model_response_gui()
             case "chain":
                 GPTState.last_was_pasted = True
                 actions.user.paste(message_text_no_images)

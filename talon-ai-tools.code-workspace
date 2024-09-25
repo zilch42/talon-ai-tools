@@ -1,0 +1,26 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"python.analysis.enablePytestSupport": false,
+		"pylint.ignorePatterns": [
+			"C0114",
+			"C0115",
+			"E0213"
+		],
+		"pylint.args": [
+			"--disable=C0114",
+			"--disable=C0115",
+			"--disable=E0213",
+			"--disable=C0116",
+			"--disable=E0211",
+			"--disable=E0102",
+			"--disable=E0401",
+			"--disable=E0611",
+			"--disable=E0402"
+		],
+	}
+}
