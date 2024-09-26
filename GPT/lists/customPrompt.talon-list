@@ -1,0 +1,102 @@
+list:  user.customPrompt
+-
+
+# SEARCH
+search: I want to search for the following using the google search engine. Format the text into a succinct search to help me find what I am looking for. Return only the text of the search query. Optimize the search for returning good search results leaving off anything that would not be useful in searching. Rather than searching for exact strings, I want to find a search that is as close as possible. I will take care of putting it into a search.
+
+# TALON
+make talon file: 
+    """
+    You are to create the body of a .talon file outlining voice commands and actions for an app based on documentation of it's keyboard shortcuts and accessability features. The following outlines how the .talon file is to be written. 
+
+    # Voice commands
+
+    A voice command has the format `RULE: BODY`, where `RULE` determines what words activate the command, and `BODY` defines what the command does when activated:
+
+    ```talon
+    # -------- RULE ----------------  ------ BODY -------
+    ([channel] unread next | goneck): key(alt-shift-down)
+    ```
+
+    This command, for example, will press the shortcut alt-shift-down whenever you say either "channel unread next", "unread next", or "goneck".
+
+    ## Rules
+
+    Rules have a versatile syntax that is like a word-based regex. Here are the key elements with examples:
+
+    ```talon
+    foo                     # Matches "foo"
+    [foo]                   # Optional: matches "foo" or nothing
+    foo*                    # Zero or more: matches "", "foo", "foo foo", ...
+    foo+                    # One or more: matches "foo", "foo foo", ...
+    foo | bar               # Choice: matches "foo" or "bar"
+    (foo)                   # Precedence/grouping: matches "foo"
+    <some_list>             # List: matches items in the defined list
+
+    # Predefined lists:
+    <user.letter>           # Maps words to letters, e.g., 'plex' to 'x'
+    <user.number_string>    # Maps words to number strings, e.g., 'five' to '5'
+    <user.ordinals>         # Maps words to ordinal strings, e.g., 'fifth' to '5'
+    <digits>                # Maps phrases to integers, e.g., "one two three" to 123
+
+    # Examples:
+    press gee: key(g)
+    defaultable [<user.letter>]: insert(letter or "default")
+    join <user.letter> [and] <user.letter>: insert(letter_1 + letter_2)
+    choose (<user.letter>|<user.ordinals>): insert(letter or number_string)
+    insert lots <user.letter>+: insert(letter_list)
+    save to disk: key(ctrl-s)
+    ```
+
+    ## Talonscript Body
+
+    In terms of the Talonscript itself, the syntax can be thought of as a very limited subset of Python. 
+
+    The main commands you will need are:
+
+    ```talon
+    # key: press/hold/release keys
+    key(g)                  # Single keypress
+    key(shift-ctrl-g)       # Keypress with modifiers
+    key(h e l l o)          # Sequential keypresses
+    key(shift:down)         # Hold down modifier key
+    key(shift:up)           # Release modifier key
+    key(del:3)              # Press key multiple times
+
+    # Other commands
+    mouse_click(0)          # Primary mouse click (1 = secondary, 2 = middle)
+    sleep(50ms)             # Sleep for 50 milliseconds
+    repeat(5)               # Repeat last action 5 times
+
+    # Multi-action commands must be on separate lines
+    do lots of things:
+        key(enter)
+        "this is some text"
+        key(ctrl-a)
+
+    # Single-action commands can be single-line
+    do one thing: key(a b ctrl-c)
+
+    # Mouse clicks with modifier require `key` up/down actions
+    open extra menu:
+        key(shift:down)
+        mouse_click(1)
+        key(shift:up)
+    ```
+
+    If the .talon file contains any modified mouse clicks, include the following chunk at the top of the .talon file. This will make sure the modifier keys are held down long enough to be registered with the click. 
+
+    ```talon
+    settings():
+        key_hold = 32
+        insert_wait = 32
+    ```
+
+    # Talon File Structure
+
+    Your talon file should follow the same command order and structure as the provided keyboard shortcut documentation. Use comments to delineate sections of commands if present, and if there is any important context or instructions within the documentation, include that as comments too. Use the names or descriptions of the shortcuts as the basis of the voice commands, but if they can be made more succinct while still being clear, do that. If there are filler words which may not be necessary in the voice commands, make them optional with `[]`. If any commands have the same name (e.g. because they apply in different contexts), be sure to differentiate them so that the voice commands do not have the same name. 
+
+    --------------------------------------
+
+    The following outlines the keyboard shortcuts for the app. Please create a .talon file to create voice commands for all of these shortcuts. 
+    """
