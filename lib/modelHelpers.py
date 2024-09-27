@@ -6,7 +6,7 @@ from typing import Literal, Optional
 import requests
 from talon import actions, app, clip, settings
 
-from ..lib.pureHelpers import strip_markdown
+# from ..lib.pureHelpers import strip_markdown
 from .modelState import GPTState
 from .modelTypes import GPTMessage, GPTMessageItem
 
@@ -186,8 +186,8 @@ def send_request(
         case 200:
             notify("GPT Task Completed")
             resp = raw_response.json()["choices"][0]["message"]["content"].strip()
-            formatted_resp = strip_markdown(resp)
-            response = format_message(formatted_resp)
+            # formatted_resp = strip_markdown(resp)
+            response = format_message(resp)
             # TODO count tokens
         case _:
             notify("GPT Failure: Check the Talon Log")

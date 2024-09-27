@@ -1,0 +1,114 @@
+You are to create the body of a .talon file outlining voice commands and actions for an app based on documentation of it's keyboard and mouse shortcuts. The following outlines how the .talon file is to be written. 
+
+# Voice commands
+
+A voice command has the format `RULE: BODY`, where `RULE` determines what words activate the command, and `BODY` defines what the command does when activated:
+
+```talon
+# -------- RULE ----------------  ------ BODY -------
+([channel] unread next | goneck): key(alt-shift-down)
+```working
+
+This command, for example, will press the shortcut alt-shift-down whenever you say either "channel unread next", "unread next", or "goneck".
+
+## Rules
+
+Rules have a versatile syntax that is like a word-based regex. Here are the key elements with examples:
+
+```talon
+foo                     # Matches "foo"
+[foo]                   # Optional: matches "foo" or nothing
+foo*                    # Zero or more: matches "", "foo", "foo foo", ...
+foo+                    # One or more: matches "foo", "foo foo", ...
+foo | bar               # Choice: matches "foo" or "bar"
+(foo)                   # Precedence/grouping: matches "foo"
+<some_list>             # List: matches items in the defined list
+
+# Predefined lists:
+<user.letter>           # Maps words to letters, e.g., 'plex' to 'x'
+<user.number_string>    # Maps words to number strings, e.g., 'five' to '5'
+<user.ordinals>         # Maps words to ordinal strings, e.g., 'fifth' to '5'
+<digits>                # Maps phrases to integers, e.g., "one two three" to 123
+
+# Examples:
+press gee: key(g)
+defaultable [<user.letter>]: insert(letter or "default")
+join <user.letter> [and] <user.letter>: insert(letter_1 + letter_2)
+choose (<user.letter>|<user.ordinals>): insert(letter or number_string)
+insert lots <user.letter>+: insert(letter_list)
+save to disk: key(ctrl-s)
+press shift function key f <user.number_string>: key("shift-f{number_string}")
+```
+
+## Talonscript Body
+
+In terms of the Talonscript itself, the syntax can be thought of as a very limited subset of Python. 
+
+The main commands you will need are:
+
+```talon
+# key: press/hold/release keys
+key(g)                  # Single keypress
+key(shift-ctrl-g)       # Keypress with modifiers
+key(h e l l o)          # Sequential keypresses
+key(shift:down)         # Hold down modifier key
+key(shift:up)           # Release modifier key
+key(del:3)              # Press key multiple times
+key([)                  # Press '[' key
+# Punctuation keys need to use the punctuation symbol not the name i.e. `key(,)` not `key(comma)`
+
+# Other commands
+mouse_click(0)          # Primary mouse click (1 = secondary, 2 = middle)
+user.mouse_drag(0)      # Initiate mouse drag with primary click (1 = secondary, 2 = middle)
+user.mouse_drag_end()   # Release mouse drag (all mouse buttons)
+sleep(50ms)             # Sleep for 50 milliseconds
+repeat(5)               # Repeat last action 5 times
+
+# Multi-action commands must be on separate lines
+do lots of things:
+    key(enter)
+    "this is some text"
+    key(ctrl-a)
+
+# Single-action commands can be single-line
+do one thing: key(a b ctrl-c)
+
+# Mouse clicks/drags with modifier require `key` up/down actions
+open extra menu:
+    key(shift:down)
+    mouse_drag(1)
+    key(shift:up)
+```
+
+If the .talon file contains any modified mouse clicks/drags, include the following chunk at the top of the .talon file. This will make sure the modifier keys are held down long enough to be registered with the click. 
+
+```talon
+settings():
+    key_hold = 32
+    insert_wait = 32
+
+drag end:
+    user.mouse_drag_end()
+    key(shift:up ctrl:up super:up alt:up cmd:up)
+```
+
+the `drag end` command is a separate voice command and does not need to be appended as an action two other commands.
+
+# Talon File Structure
+
+- Your .talon file should follow the same command order and structure as the provided keyboard and mouse shortcut documentation. 
+- Use comments to delineate sections of commands if present, and if there are any important context or instructions within the documentation, include them as comments too. 
+- Use the names or descriptions of the shortcuts as the basis of the voice commands, but if they can be made more succinct while still being clear, do that. 
+- If there are filler words which may not be necessary in the voice commands, make them optional with `[]`. 
+- If any commands that have the same name (e.g. because they apply in different contexts), be sure to differentiate them so that the voice commands do not have the same name. 
+- If there are multiple shortcuts that perform the same action, only retain the first one. 
+- If any commands can be combined with a list (e.g. `<user.number_string>`), do that.  
+- Remember to include the extra settings and `drag end` command if any drag commands are present.
+- Remember that commands with multiple actions must have each action on a separate line. 
+- Do not include a comment above every voice command restating the voice command name
+
+
+--------------------------------------
+
+The following outlines the keyboard and mouse shortcuts for the app. Please create a .talon file to create voice commands for all of these shortcuts. 
+
