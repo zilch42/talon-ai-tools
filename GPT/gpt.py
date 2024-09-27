@@ -1,9 +1,11 @@
 import os
 from typing import Any, Optional
+import markdown2
 
 from talon import Module, actions, clip, settings, Context
 
 from ..lib.HTMLBuilder import Builder
+from ..lib.pureHelpers import strip_markdown
 from ..lib.modelConfirmationGUI import confirmation_gui
 from ..lib.modelHelpers import (
     extract_message,
@@ -242,6 +244,7 @@ class UserActions:
             return
 
         message_text_no_images = extract_message(gpt_message)
+        markdown_stripped_text = strip_markdown(message_text_no_images)
         match method:
             case "above":
                 actions.key("left")
@@ -270,7 +273,8 @@ class UserActions:
             case "browser":
                 builder = Builder()
                 builder.h1("Talon GPT Result")
-                for line in message_text_no_images.split("\n"):
+                markdown_formatted_text = markdown2.markdown(message_text_no_images, extras=['fenced-code-blocks', 'code-friendly', 'tables'])
+                for line in markdown_formatted_text.split("\n"):
                     builder.p(line)
                 builder.render()
             case "textToSpeech":
@@ -298,7 +302,7 @@ class UserActions:
 
             case "paste":
                 GPTState.last_was_pasted = True
-                actions.user.paste(message_text_no_images)
+                actions.user.paste(markdown_stripped_text)
             case "google":
                 actions.user.search_with_search_engine("https://www.google.com/search?q=%s", message_text_no_images)
             # If the user doesn't specify a method assume they want to paste.
