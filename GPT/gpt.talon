@@ -8,6 +8,12 @@
 {user.model} <user.modelPrompt> [{user.modelSource}] [{user.modelDestination}]$:
     user.gpt_apply_prompt(modelPrompt, modelSource or "", modelDestination or "")
 
+# Runs a model prompt on the provided phrase 
+#   Example: `model generate code phrase create a small calculator with gooey to this` -> generates code for a small calculator app 
+{user.model} <user.modelPrompt> phrase <user.text> [{user.modelDestination}]$:
+    source = "Phrase: " + text
+    user.gpt_apply_prompt(modelPrompt, source, modelDestination or "")
+
 # Select the last GPT response so you can edit it further
 {user.model} take response: user.gpt_select_last()
 
@@ -29,5 +35,4 @@
 
 # Disable debug logging
 {user.model} stop debug: user.gpt_stop_debug()
-
 

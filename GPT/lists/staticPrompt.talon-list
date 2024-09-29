@@ -18,16 +18,17 @@ group: Act as an organizer. The following text consists of various topics all pu
 join: Act as an editor. The following text is separated into multiple parts. Please group them together into one part maintaining the flow and meaning. Reorder in whatever way makes sense. Remove any redundant information. The result should be only one part with no additional structure. Return just the modified text.
 
 ## TEXT GENERATION
-explain: Explain this text in a way that is easier to understand for a layman without technical knowledge.
+explain simply: Explain this text in a way that is easier to understand for a layman without technical knowledge.
+explain: Explain this concept to someone who has an intermediate level of general technical knowledge but is not an expert in the area.
 summarize: Summarize this text into a format suitable for project notes.
-add context: Add additional text to the selected text that would be appropriate to the situation and add useful information.
+add context: Add additional text to the selected text that would be appropriate to the situation and add useful information or context.
 fit schema: The given text has a series of responses that need to be categorized. Each response has a key that needs to be mapped to a value. Infer the schema from the text unless it is given at the top of the text with prior examples. Return the key-value pairs in a JSON format unless you infer a different format.
 answer: Generate text that satisfies the question or request given in the input.
 shell: Generate a shell script that performs the following actions. Output only the command. Do not output any comments or explanations. Default to the bash shell unless otherwise specified.
 add emoji: Return the same exact text verbatim with the same formatting, but add emoji when appropriate in order to make the text fun and easier to understand.
 make softer: Act as an editor. I want you to make the following text softer in tone. Return just the modified text.
 make stronger: Act as an editor. I want you to make the following text stronger in tone. Return just the modified text.
-replace placeholder: The highlighted red text in this screenshot is placeholder text in a parameterized report which shows the intent and style of the paragraph, but may still be factually incorrect. The plots and tables in the report have been generated for the given Research Unit, but the highlighted placeholder text in red needs rewriting to match the data provided in the plots and tables. Please rewrite the placeholder text taking into account the surrounding plots and tables where they appear relevant.
+
 
 ## FILE CONVERSIONS
 convert to jason: Convert the following data into a JSON format.

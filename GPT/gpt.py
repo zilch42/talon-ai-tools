@@ -317,6 +317,10 @@ class UserActions:
 
     def gpt_get_source_text(spoken_text: str) -> GPTMessageItem:
         """Get the source text that will have the prompt applied to it"""
+
+        if spoken_text.startswith("Phrase: "):
+            return format_message(spoken_text.removeprefix("Phrase: "))
+
         match spoken_text:
             case "clipboard":
                 return format_clipboard()

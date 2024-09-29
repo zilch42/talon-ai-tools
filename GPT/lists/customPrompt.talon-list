@@ -5,3 +5,6 @@ list:  user.customPrompt
 search: I want to search for the following using the google search engine. Format the text into a succinct search to help me find what I am looking for. Return only the text of the search query. Optimize the search for returning good search results leaving off anything that would not be useful in searching. Rather than searching for exact strings, I want to find a search that is as close as possible. I will take care of putting it into a search.
 
 # TALON
+
+# WORD
+replace placeholder: The highlighted red text in this screenshot is placeholder text in a parameterized report which shows the intent and style of the paragraph, but may still be factually incorrect. The plots and tables in the report have been generated for the given parameters, but the highlighted placeholder text in red needs rewriting to match the data provided in the plots and tables. Please rewrite the placeholder text taking into account the surrounding plots and tables where they appear relevant.
