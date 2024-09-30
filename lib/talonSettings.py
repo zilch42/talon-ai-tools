@@ -3,7 +3,7 @@ from pathlib import Path
 from talon import Context, Module
 from typing import Literal
 
-from talon import Context, Module, fs
+from talon import Context, Module, fs, resource
 
 mod = Module()
 ctx = Context()
@@ -33,7 +33,6 @@ def read_text_file(filepath):
         file_contents = file.read()
     return {key: file_contents}
 
-
 def update_long_prompts(folder_path):
     """Read all long prompt text files and add to dict with filename as key"""
     prompt_list = {}
@@ -46,7 +45,7 @@ def update_long_prompts(folder_path):
     
     ctx.lists['self.longPrompt'] = prompt_list
 
-# do on initial load
+# # do on initial load
 update_long_prompts(LONG_PROMPT_DIR)
 
 def on_change(path, flags):
