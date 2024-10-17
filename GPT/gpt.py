@@ -1,6 +1,6 @@
 import os
 from typing import Any, Optional
-import markdown2
+# import markdown2
 
 from talon import Module, actions, clip, settings, Context
 
@@ -273,7 +273,8 @@ class UserActions:
             case "browser":
                 builder = Builder()
                 builder.h1("Talon GPT Result")
-                markdown_formatted_text = markdown2.markdown(message_text_no_images, extras=['fenced-code-blocks', 'code-friendly', 'tables'])
+                # markdown_formatted_text = markdown2.markdown(message_text_no_images, extras=['fenced-code-blocks', 'code-friendly', 'tables'])
+                markdown_formatted_text = message_text_no_images
                 for line in markdown_formatted_text.split("\n"):
                     builder.p(line)
                 builder.render()
