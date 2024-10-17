@@ -7,6 +7,8 @@ import platform
 import tempfile
 import webbrowser
 
+from talon import actions
+
 
 def get_style():
     # read in all the styles from a file ./styles.css
@@ -138,7 +140,11 @@ class Builder:
         ) as temp_file:
             temp_file.write(full_html)
             temp_file_path = temp_file.name
-        webbrowser.open("file://" + os.path.abspath(temp_file_path))
+        url = "file://" + os.path.abspath(temp_file_path)
+        # TODO fix talon weird windows issues
+        # webbrowser.open(url)
+        actions.user.switcher_focus("Microsoft Edge")
+        actions.user.rango_command_without_target("focusOrCreateTabByUrl", url)
 
 
 # API Demo
