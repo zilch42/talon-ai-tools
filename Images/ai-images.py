@@ -1,7 +1,7 @@
 import webbrowser
 
 import requests
-from talon import Module
+from talon import Module, actions
 
 from ..lib.modelHelpers import get_token, notify
 
@@ -33,7 +33,11 @@ class Actions:
                 response_dict = response.json()
                 image_url = response_dict["data"][0]["url"]
                 # TODO choose whether to save the image, save the url, or paste the image into the current window
+                # TODO fix talon weird windows issues
                 webbrowser.open(image_url)
+                # actions.user.switcher_focus("Microsoft Edge")
+                # actions.key("ctrl-t")
+                # actions.browser.go(image_url)
             case _:
                 print(response.json())
                 notify("Error generating image")

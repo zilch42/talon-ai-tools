@@ -141,10 +141,11 @@ class Builder:
             temp_file.write(full_html)
             temp_file_path = temp_file.name
         url = "file://" + os.path.abspath(temp_file_path)
+        webbrowser.open(url)
         # TODO fix talon weird windows issues
-        # webbrowser.open(url)
-        actions.user.switcher_focus("Microsoft Edge")
-        actions.user.rango_command_without_target("focusOrCreateTabByUrl", url)
+        # actions.user.switcher_focus("Microsoft Edge")
+        # actions.key("ctrl-t")
+        # actions.browser.go(url)
 
 
 # API Demo
