@@ -1,4 +1,5 @@
 app: vscode
+app: cursor
 -
 
 genie show: user.vscode('chatgpt-vscode.view.focus')
